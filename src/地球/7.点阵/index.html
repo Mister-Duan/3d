@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Three.js中文网：http://www.webgl3d.cn/</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script type="module">
+      // 引入Three.js
+      import * as THREE from "../../libs/three.js-r123/build/three.module.js";
+      import { scene, renderer, camera } from "./scene.js";
+      //Three.js渲染结果Canvas画布插入到body元素中
+      document.body.appendChild(renderer.domElement);
+      import { createEarth } from "./earth.js"; //绘制地球
+
+      var R = 100; //地球半径
+      var earth = createEarth(R); // 创建地球
+      scene.add(earth); //地球Mesh插入场景中
+
+      // 渲染循环
+      function render() {
+        earth.rotateY(0.004);
+        renderer.render(scene, camera); //执行渲染操作
+        requestAnimationFrame(render); //请求再次执行渲染函数render，渲染下一帧
+      }
+      render();
+    </script>
+  </body>
+</html>
